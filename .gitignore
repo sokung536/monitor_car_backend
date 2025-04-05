@@ -27,3 +27,5 @@ dist-ssr
 *.mov
 
 venv/
+__pycache__/
+*.pyc
