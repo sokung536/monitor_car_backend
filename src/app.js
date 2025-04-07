@@ -4,8 +4,13 @@ import authRoutes from "./routes/authRoutes.js" // ใช้ `import` แทน 
 import db from "./database/db.js" // ใช้ `import` แทน `require`
 import config from "./config/config.js" //
 import { authenticateToken } from "./controllers/authController.js"
-
+import cors from "cors";
 const app = express()
+
+app.use(cors({
+  origin: "http://43.225.141.106", // ✅ หรือ "*" ชั่วคราว
+  credentials: true
+}));
 
 // Middleware
 app.use(bodyParser.json())
@@ -45,6 +50,6 @@ app.get("/api/protected", authenticateToken, (req, res) => {
 	res.json({ message: "This is protected data", user: req.user })
 })
 
-app.listen(config.app.port, () => {
+app.listen(config.app.port, "0.0.0.0", () => {
 	console.log(`Server is running on http://localhost:${config.app.port}`)
 })
